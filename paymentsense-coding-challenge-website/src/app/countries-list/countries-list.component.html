@@ -1,0 +1,5 @@
+<mat-spinner *ngIf="!countriesApiRequestCompleted" class="center"></mat-spinner>
+
+<mat-list role="list" >
+    <mat-list-item *ngFor="let country of countries" role="listitem">{{country.name}}</mat-list-item>
+</mat-list>

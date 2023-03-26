@@ -4,19 +4,28 @@ import { AppComponent } from './app.component';
 import { PaymentsenseCodingChallengeApiService } from './services';
 import { MockPaymentsenseCodingChallengeApiService } from './testing/mock-paymentsense-coding-challenge-api.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CountriesListComponent } from './countries-list/countries-list.component'
+import { CountriesApiService } from './services/countries-api-service'
+import { MockCountriesApiService } from './testing/mock-countries-api-service';
+import { MatListModule } from '@angular/material/list';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        MatListModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        CountriesListComponent
       ],
       providers: [
-        { provide: PaymentsenseCodingChallengeApiService, useClass: MockPaymentsenseCodingChallengeApiService }
+        { provide: PaymentsenseCodingChallengeApiService, useClass: MockPaymentsenseCodingChallengeApiService },
+        { provide: CountriesApiService, useClass: MockCountriesApiService },
+        { provide: MatSnackBar, useClass: MatSnackBar }
       ]
     }).compileComponents();
   }));
