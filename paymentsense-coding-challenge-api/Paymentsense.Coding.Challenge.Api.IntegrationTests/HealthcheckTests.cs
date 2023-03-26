@@ -1,13 +1,12 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Paymentsense.Coding.Challenge.Api.Tests
+namespace Paymentsense.Coding.Challenge.Api.IntegrationTests
 {
     public class HealthcheckTests
     {

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29326.143
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymentsense.Coding.Challenge.Api", "Paymentsense.Coding.Challenge.Api\Paymentsense.Coding.Challenge.Api.csproj", "{04E742B7-E136-47F1-86FD-E72220D14013}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymentsense.Coding.Challenge.Api.Tests", "Paymentsense.Coding.Challenge.Api.Tests\Paymentsense.Coding.Challenge.Api.Tests.csproj", "{29B33764-7D72-4940-90F9-28467B569288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paymentsense.Coding.Challenge.Api.IntegrationTests", "Paymentsense.Coding.Challenge.Api.IntegrationTests\Paymentsense.Coding.Challenge.Api.IntegrationTests.csproj", "{29B33764-7D72-4940-90F9-28467B569288}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
