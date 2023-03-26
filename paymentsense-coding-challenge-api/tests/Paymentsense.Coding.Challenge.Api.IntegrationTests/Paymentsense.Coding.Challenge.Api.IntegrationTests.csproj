@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Paymentsense.Coding.Challenge.Api\Paymentsense.Coding.Challenge.Api.csproj" />
+    <ProjectReference Include="..\..\src\Paymentsense.Coding.Challenge.Api\Paymentsense.Coding.Challenge.Api.csproj" />
   </ItemGroup>
 
 </Project>
