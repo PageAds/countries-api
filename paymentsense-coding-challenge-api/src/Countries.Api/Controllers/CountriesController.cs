@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Countries.Domain.Models;
+using Countries.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Countries.Controllers
 {
@@ -6,10 +10,17 @@ namespace Countries.Controllers
     [Route("[controller]")]
     public class CountriesController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<string> Get()
+        private readonly ICountriesRepository countriesRepository;
+
+        public CountriesController(ICountriesRepository countriesRepository)
         {
-            return Ok();
+            this.countriesRepository = countriesRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Country>>> Get()
+        {
+            return Ok(await this.countriesRepository.Get());
         }
     }
 }
