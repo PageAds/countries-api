@@ -1,6 +1,7 @@
 using Countries.Application.Mappers;
 using Countries.Application.Mappers.Interfaces;
 using Countries.Application.Repositories;
+using Countries.Application.Repositories.Decorators;
 using Countries.Domain.Repositories.Interfaces;
 using Countries.Infrastructure.HttpClients;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +44,11 @@ namespace Countries.Api
                 httpClient.BaseAddress = new Uri(configuration["RestCountriesApiUrl"]);
             });
 
+            services.AddMemoryCache();
+
             services.AddTransient<ICountriesRepository, CountriesRepository>();
+            services.Decorate<ICountriesRepository, CountriesRepositoryWithCache>();
+
             services.AddSingleton<ICountryMapper, CountryMapper>();
         }
 
