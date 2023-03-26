@@ -79,7 +79,7 @@ namespace Countries.IntegrationTests
             countriesResponse.Count().Should().Be(countries.Count());
             foreach (var country in countries)
             {
-                countriesResponse.Single(x => x.Name == country.Name).Should().NotBeNull();
+                countriesResponse.SingleOrDefault(x => x.Name == country.Name).Should().NotBeNull();
             }
         }
     }
