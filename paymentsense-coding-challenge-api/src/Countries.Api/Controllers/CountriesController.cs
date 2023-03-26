@@ -1,5 +1,5 @@
 ﻿using Countries.Domain.Models;
-using Countries.Domain.Repositories;
+using Countries.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

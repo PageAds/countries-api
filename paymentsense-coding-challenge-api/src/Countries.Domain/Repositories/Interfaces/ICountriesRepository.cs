@@ -1,6 +1,6 @@
 ﻿using Countries.Domain.Models;
 
-namespace Countries.Domain.Repositories
+namespace Countries.Domain.Repositories.Interfaces
 {
     public interface ICountriesRepository
     {
