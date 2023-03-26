@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <StartupObject>Paymentsense.Coding.Challenge.Api.Program</StartupObject>
+    <StartupObject>Countries.Api.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

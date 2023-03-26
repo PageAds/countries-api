@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Paymentsense.Coding.Challenge.Api.Controllers
+namespace Countries.Controllers
 {
     [ApiController]
     [Route("[controller]")]

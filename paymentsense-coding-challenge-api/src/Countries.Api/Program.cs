@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Paymentsense.Coding.Challenge.Api
+namespace Countries.Api
 {
     public static class Program
     {

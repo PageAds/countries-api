@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Countries.Api;
+using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.Net;
@@ -6,7 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Paymentsense.Coding.Challenge.Api.IntegrationTests
+namespace Countries.IntegrationTests
 {
     public class CountriesControllerTests
     {
