@@ -77,6 +77,51 @@ namespace Countries.IntegrationTests
             }
         }
 
+        [Fact]
+        public async Task GetCountries_WhenSubsequentRequestsAreMade_RequestToRESTCountriesIsOnlyPerformedOnce()
+        {
+            // Arrange
+            var countries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
+            var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(countries), new MediaTypeHeaderValue("application/json"))
+            };
+
+            var httpMessageHandlerMock = new Mock<HttpMessageHandler>();
+
+            httpMessageHandlerMock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(restCountriesHttpResponseMessage);
+
+            var restCountriesHttpClient = new HttpClient(httpMessageHandlerMock.Object)
+            {
+                BaseAddress = new Uri("https://test.com")
+            };
+
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.AddTransient<RestCountriesHttpClient>((sp) => { return new RestCountriesHttpClient(restCountriesHttpClient); });
+                    });
+                });
+
+            var client = application.CreateClient();
+
+            // Act
+            await client.GetAsync("/countries");
+            await client.GetAsync("/countries");
+            await client.GetAsync("/countries");
+
+            // Assert
+            httpMessageHandlerMock.Protected().Verify<Task<HttpResponseMessage>>("SendAsync", Times.Once(), ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>());
+        }
+
         public HttpClient CreateTestHttpClient(HttpResponseMessage restCountriesHttpResponseMessage)
         {
             var httpMessageHandlerMock = new Mock<HttpMessageHandler>();
