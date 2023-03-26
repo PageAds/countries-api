@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using Countries.Api;
-using Countries.Domain.Models;
+using Countries.Application.Models;
 using Countries.Infrastructure.HttpClients;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -10,7 +10,6 @@ using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -31,7 +30,7 @@ namespace Countries.IntegrationTests
         }
 
         [Fact]
-        public async Task GetCountries_ReturnsOKResult()
+        public async Task GetCountries_ReturnsOKResponse()
         {
             // Arrange
             var countries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
@@ -50,13 +49,13 @@ namespace Countries.IntegrationTests
         }
 
         [Fact]
-        public async Task GetCountries_WhenRepositoryReturnsCountries_ReturnsListOfTheSameCountryNames()
+        public async Task GetCountries_WhenExternalApiReturnsCountries_ReturnsListOfTheSameCountryNames()
         {
             // Arrange
-            var countries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
+            var mockedCountries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
             var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(countries), new MediaTypeHeaderValue("application/json"))
+                Content = new StringContent(JsonConvert.SerializeObject(mockedCountries), new MediaTypeHeaderValue("application/json"))
             };
 
             var client = this.CreateTestHttpClient(restCountriesHttpResponseMessage);
@@ -68,12 +67,14 @@ namespace Countries.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            var countriesResponse = JsonConvert.DeserializeObject<IEnumerable<Country>>(responseString);
+            var countriesResponse = JsonConvert.DeserializeObject<CountriesResponse>(responseString);
             countriesResponse.Should().NotBeNull();
-            countriesResponse.Count().Should().Be(countries.Count());
-            foreach (var country in countries)
+            countriesResponse.Countries.Should().NotBeNull();
+            countriesResponse.Countries.Count().Should().Be(mockedCountries.Count());
+
+            foreach (var country in countriesResponse.Countries)
             {
-                countriesResponse.SingleOrDefault(x => x.Name == country.Name.Common).Should().NotBeNull();
+                mockedCountries.Select(x => x.Name.Common).SingleOrDefault(x => x == country.Name).Should().NotBeNull();
             }
         }
 
@@ -81,10 +82,10 @@ namespace Countries.IntegrationTests
         public async Task GetCountries_WhenSubsequentRequestsAreMade_RequestToRESTCountriesIsOnlyPerformedOnce()
         {
             // Arrange
-            var countries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
+            var mockedCountries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
             var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(countries), new MediaTypeHeaderValue("application/json"))
+                Content = new StringContent(JsonConvert.SerializeObject(mockedCountries), new MediaTypeHeaderValue("application/json"))
             };
 
             var httpMessageHandlerMock = new Mock<HttpMessageHandler>();
@@ -99,7 +100,7 @@ namespace Countries.IntegrationTests
 
             var restCountriesHttpClient = new HttpClient(httpMessageHandlerMock.Object)
             {
-                BaseAddress = new Uri("https://test.com")
+                BaseAddress = fixture.Create<Uri>()
             };
 
             var application = new WebApplicationFactory<Program>()
@@ -122,7 +123,45 @@ namespace Countries.IntegrationTests
             httpMessageHandlerMock.Protected().Verify<Task<HttpResponseMessage>>("SendAsync", Times.Once(), ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>());
         }
 
-        public HttpClient CreateTestHttpClient(HttpResponseMessage restCountriesHttpResponseMessage)
+        [Theory]
+        [InlineData(1, 5, 100)]
+        [InlineData(2, 10, 200)]
+        [InlineData(3, 20, 500)]
+        public async Task GetCountries_ReturnsPaginatedResponse(int pageNumber, int pageSize, int totalRecords)
+        {
+            // Arrange
+            var countriesToReturn = 100;
+            var mockedCountries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>(countriesToReturn);
+            var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(mockedCountries), new MediaTypeHeaderValue("application/json"))
+            };
+
+            var client = this.CreateTestHttpClient(restCountriesHttpResponseMessage);
+
+            // Act
+            var response = await client.GetAsync($"/countries?pageNumber{pageNumber}&pageSize={pageSize}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            var countriesResponse = JsonConvert.DeserializeObject<CountriesResponse>(responseString);
+            countriesResponse.Should().NotBeNull();
+            countriesResponse.PageNumber.Should().Be(pageNumber);
+            countriesResponse.PageSize.Should().Be(pageSize);
+            countriesResponse.TotalRecords.Should().Be(totalRecords);
+            countriesResponse.TotalPages.Should().Be(totalRecords / pageSize);
+            countriesResponse.Countries.Should().NotBeNull();
+            countriesResponse.Countries.Count().Should().Be(pageSize);
+            
+            foreach (var country in countriesResponse.Countries)
+            {
+                mockedCountries.Select(x => x.Name.Common).Should().Contain(country.Name);
+            }
+        }
+
+        private HttpClient CreateTestHttpClient(HttpResponseMessage restCountriesHttpResponseMessage)
         {
             var httpMessageHandlerMock = new Mock<HttpMessageHandler>();
 
@@ -136,7 +175,7 @@ namespace Countries.IntegrationTests
 
             var restCountriesHttpClient = new HttpClient(httpMessageHandlerMock.Object)
             {
-                BaseAddress = new Uri("https://test.com")
+                BaseAddress = fixture.Create<Uri>()
             };
 
             var application = new WebApplicationFactory<Program>()
