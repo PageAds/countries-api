@@ -14,7 +14,7 @@ namespace Countries.Application.Mappers
                 restCountry.Currencies,
                 restCountry.Languages,
                 restCountry.CapitalCities,
-                restCountry.Borders.Select(border => restCountries.SingleOrDefault(country => country.CountryCode == border)?.Name?.Common));
+                restCountry.Borders?.Select(border => restCountries.SingleOrDefault(country => country.CountryCode == border)?.Name?.Common));
         }
     }
 }

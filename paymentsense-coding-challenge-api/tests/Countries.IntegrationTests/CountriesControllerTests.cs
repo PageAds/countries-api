@@ -61,11 +61,11 @@ namespace Countries.IntegrationTests
             mockCountry2.Borders = new List<string> { mockCountry3.CountryCode };
             mockCountry3.Borders = new List<string> { mockCountry1.CountryCode };
 
-            var mockedCountries = new List<Infrastructure.Models.RestCountriesModel.Country> { mockCountry1, mockCountry2, mockCountry3 };
+            var mockCountries = new List<Infrastructure.Models.RestCountriesModel.Country> { mockCountry1, mockCountry2, mockCountry3 };
 
             var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(mockedCountries), new MediaTypeHeaderValue("application/json"))
+                Content = new StringContent(JsonConvert.SerializeObject(mockCountries), new MediaTypeHeaderValue("application/json"))
             };
 
             var client = this.CreateTestHttpClient(restCountriesHttpResponseMessage);
@@ -80,11 +80,11 @@ namespace Countries.IntegrationTests
             var countriesResponse = JsonConvert.DeserializeObject<CountriesResponse>(responseString);
             countriesResponse.Should().NotBeNull();
             countriesResponse.Countries.Should().NotBeNull();
-            countriesResponse.Countries.Count().Should().Be(mockedCountries.Count());
+            countriesResponse.Countries.Count().Should().Be(mockCountries.Count());
 
             foreach (var country in countriesResponse.Countries)
             {
-                var mockedCountry = mockedCountries.Single(x => x.Name.Common == country.Name);
+                var mockedCountry = mockCountries.Single(x => x.Name.Common == country.Name);
                 country.Name.Should().Be(mockedCountry.Name.Common);
                 country.FlagUrl.Should().Be(mockedCountry.Flags.Png);
                 country.Population.Should().Be(mockedCountry.Population);
@@ -105,7 +105,7 @@ namespace Countries.IntegrationTests
 
                 foreach (var mockedBorder in mockedCountry.Borders)
                 {
-                    var mockedBorderedCountry = mockedCountries.Single(x => x.CountryCode == mockedBorder);
+                    var mockedBorderedCountry = mockCountries.Single(x => x.CountryCode == mockedBorder);
                     country.Borders.Should().Contain(mockedBorderedCountry.Name.Common);
                 }
             }

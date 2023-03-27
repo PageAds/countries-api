@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Countries.Infrastructure.Converters;
+using Countries.Infrastructure.Converters.RestCountries;
+using Newtonsoft.Json;
 
 namespace Countries.Infrastructure.Models.RestCountriesModel
 {
@@ -20,9 +22,11 @@ namespace Countries.Infrastructure.Models.RestCountriesModel
         public IEnumerable<string> TimeZones { get; set; }
 
         [JsonProperty("currencies")]
+        [JsonConverter(typeof(PropertyNamesConverter))]
         public IEnumerable<string> Currencies { get; set; }
 
         [JsonProperty("languages")]
+        [JsonConverter(typeof(LanguagesConverter))]
         public IEnumerable<string> Languages { get; set; }
 
         [JsonProperty("capital")]
