@@ -17,13 +17,14 @@ namespace Countries.Application.UnitTests.Mappers
         }
 
         [Fact]
-        public void Map_Name()
+        public void Map_Country()
         {
             var restCountry = fixture.Create<Infrastructure.Models.RestCountriesModel.Country>();
 
             var country = this.mapper.Map(restCountry);
 
             country.Name.Should().Be(restCountry.Name.Common);
+            country.FlagUrl.Should().Be(restCountry.Flags.Png);
         }
     }
 }
