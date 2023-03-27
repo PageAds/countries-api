@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -23,6 +24,7 @@ describe('AppComponent', () => {
         MatListModule,
         MatTableModule,
         MatPaginatorModule,
+        MatDialogModule
       ],
       declarations: [
         AppComponent,

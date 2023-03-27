@@ -11,11 +11,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CountryDetailsDialogComponent } from './country-details-dialog/country-details-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CountriesListComponent
+    CountriesListComponent,
+    CountryDetailsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@ import { CountriesApiService } from '../services'
 import { Country } from '../models/country'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
+import { CountryDetailsDialogComponent } from '../country-details-dialog/country-details-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-countries-list',
@@ -12,8 +14,8 @@ import { PageEvent } from '@angular/material/paginator';
 export class CountriesListComponent {
   public countries: Country[] = [];
   public countriesApiRequestCompleted: boolean = false;
+  public countriesApiRequestSucceeded: boolean = false;
   public displayedColumns: string[] = ['name', 'flag'];
-  public clickedRows = new Set<Country>();
   public pageNumber: number = 0;
   public pageSize: number = 5;
   public totalRecords: number = 0;
@@ -22,7 +24,8 @@ export class CountriesListComponent {
 
   constructor(
     private countriesApiService: CountriesApiService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog) {
       this.pageEvent = null!;
     }
     
@@ -39,6 +42,7 @@ export class CountriesListComponent {
         this.totalRecords = countriesResponse.totalRecords;
         this.totalPages = countriesResponse.totalPages;
         this.countriesApiRequestCompleted = true;
+        this.countriesApiRequestSucceeded = true;
       },
       error: (err) => {
         console.error('Error occurred when retrieving countries via API');
@@ -50,5 +54,11 @@ export class CountriesListComponent {
         });
       }
     })
+  }
+
+  openDialog(country: Country) {
+    this.dialog.open(CountryDetailsDialogComponent, {
+      data: country
+    });
   }
 }

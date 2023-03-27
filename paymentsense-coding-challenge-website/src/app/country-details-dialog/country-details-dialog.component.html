@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>{{data.name}} details</h1>
+<div mat-dialog-content>
+  <ul>
+    <li>
+      <span id="country-detail-population">Population: {{ data.population }}</span>
+    </li>
+    <li>      
+        <span id="country-detail-time-zones">Time zones: 
+            <ul>
+                <li *ngFor="let timezone of data.timeZones">{{ timezone }}</li>
+            </ul>
+        </span>
+    </li>
+    <li>      
+        <span id="country-detail-currencies">Currencies: 
+            <ul>
+                <li *ngFor="let currency of data.currencies">{{ currency }}</li>
+            </ul>
+        </span>
+    </li>
+    <li>      
+        <span id="country-detail-languages">Languages: 
+            <ul>
+                <li *ngFor="let language of data.languages">{{ language }}</li>
+            </ul>
+        </span>
+    </li>
+    <li>      
+        <span id="country-detail-capital-cities">Capital cities: 
+            <ul>
+                <li *ngFor="let capitalCity of data.capitalCities">{{ capitalCity }}</li>
+            </ul>
+        </span>
+    </li>
+    <li>      
+        <span id="country-detail-borders">Borders: 
+            <ul>
+                <li *ngFor="let border of data.borders">{{ border }}</li>
+            </ul>
+        </span>
+    </li>
+  </ul>
+</div>

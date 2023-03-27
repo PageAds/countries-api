@@ -1,6 +1,6 @@
 .center {
     left: 50%;
-    position: relative;
+    position: absolute;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
@@ -21,7 +21,7 @@ td.mat-column-name {
     font-size: 40px;
 }
 
-#countriesTable {
+#countries-table {
     width: 50%;
     position: relative;
     transform: translateX(50%);

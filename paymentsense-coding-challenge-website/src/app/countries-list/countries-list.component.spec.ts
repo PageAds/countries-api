@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('CountriesListComponent', () => {
   let component: CountriesListComponent;
@@ -18,7 +19,8 @@ describe('CountriesListComponent', () => {
         BrowserAnimationsModule,
         MatListModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatDialogModule
        ],
       declarations: [ CountriesListComponent ],
       providers: [
@@ -41,17 +43,17 @@ describe('CountriesListComponent', () => {
     const fixture = TestBed.createComponent(CountriesListComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('tbody tr:nth-of-type(1) td:nth-of-type(1)').textContent).toBe('United Kingdom');
-    expect(compiled.querySelector('tbody tr:nth-of-type(2) td:nth-of-type(1)').textContent).toBe('Ireland');
-    expect(compiled.querySelector('tbody tr:nth-of-type(3) td:nth-of-type(1)').textContent).toBe('France');
+    expect(compiled.querySelector('tbody tr:nth-of-type(1) .mat-column-name').textContent).toBe('United Kingdom');
+    expect(compiled.querySelector('tbody tr:nth-of-type(2) .mat-column-name').textContent).toBe('Ireland');
+    expect(compiled.querySelector('tbody tr:nth-of-type(3) .mat-column-name').textContent).toBe('France');
   });
 
   it('should render table containing country flags', () => {
     const fixture = TestBed.createComponent(CountriesListComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('tbody tr:nth-of-type(1) td:nth-of-type(2) img').src).toBe('https://flagcdn.com/w320/gb.png');
-    expect(compiled.querySelector('tbody tr:nth-of-type(2) td:nth-of-type(2) img').src).toBe('https://flagcdn.com/w320/ca.png');
-    expect(compiled.querySelector('tbody tr:nth-of-type(3) td:nth-of-type(2) img').src).toBe('https://flagcdn.com/w320/fr.png');
+    expect(compiled.querySelector('tbody tr:nth-of-type(1) .mat-column-flag img').src).toBe('https://flagcdn.com/w320/gb.png');
+    expect(compiled.querySelector('tbody tr:nth-of-type(2) .mat-column-flag img').src).toBe('https://flagcdn.com/w320/ca.png');
+    expect(compiled.querySelector('tbody tr:nth-of-type(3) .mat-column-flag img').src).toBe('https://flagcdn.com/w320/fr.png');
   });
 });
