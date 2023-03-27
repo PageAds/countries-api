@@ -6,7 +6,9 @@ namespace Countries.Application.Mappers
     {
         public Domain.Models.Country Map(Infrastructure.Models.RestCountriesModel.Country restCountry)
         {
-            return new Domain.Models.Country(restCountry.Name.Common);
+            return new Domain.Models.Country(
+                restCountry.Name.Common,
+                restCountry.Flags.Png);
         }
     }
 }
