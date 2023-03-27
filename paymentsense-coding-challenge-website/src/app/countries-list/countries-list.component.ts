@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { CountriesApiService } from '../services/countries-api-service'
+import { CountriesApiService } from '../services'
 import { Country } from '../models/country'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-countries-list',
@@ -11,20 +12,32 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CountriesListComponent {
   public countries: Country[] = [];
   public countriesApiRequestCompleted: boolean = false;
+  public displayedColumns: string[] = ['name', 'flag'];
+  public clickedRows = new Set<Country>();
+  public pageNumber: number = 0;
+  public pageSize: number = 5;
+  public totalRecords: number = 0;
+  public totalPages: number = 0;
+  public pageEvent: PageEvent;
 
   constructor(
     private countriesApiService: CountriesApiService,
-    private snackBar: MatSnackBar) {}
+    private snackBar: MatSnackBar) {
+      this.pageEvent = null!;
+    }
     
   ngOnInit() {
-    this.getCountries();
+    this.getCountries(null!);
   }
 
-  getCountries() {
-    this.countriesApiService.getCountries()
+  getCountries(event: PageEvent) {
+    this.pageEvent = event;
+    this.countriesApiService.getCountries(event == null ? 1 : event.pageIndex + 1, event == null ? this.pageSize : event.pageSize)
     .subscribe({
-      next: async (countries) => {
-        this.countries = countries;
+      next: async (countriesResponse) => {
+        this.countries = countriesResponse.countries;
+        this.totalRecords = countriesResponse.totalRecords;
+        this.totalPages = countriesResponse.totalPages;
         this.countriesApiRequestCompleted = true;
       },
       error: (err) => {

@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Countries.Domain\Countries.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\RestCountriesResponse.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

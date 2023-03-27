@@ -1,5 +1,28 @@
 <mat-spinner *ngIf="!countriesApiRequestCompleted" class="center"></mat-spinner>
 
-<mat-list role="list" >
-    <mat-list-item *ngFor="let country of countries" role="listitem">{{country.name}}</mat-list-item>
-</mat-list>
+<div id="countriesTable" *ngIf="countriesApiRequestCompleted" class="mat-elevation-z8 demo-table">
+    <table mat-table [dataSource]="countries" >
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Country name</th>
+            <td mat-cell *matCellDef="let country">{{country.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="flag">
+            <th mat-header-cell *matHeaderCellDef>Flag</th>
+            <td mat-cell *matCellDef="let country"><img width="200" height="120" src="{{country.flagUrl}}"></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+            mat-row
+            (click)="clickedRows.add(row)"
+            [class.demo-row-is-clicked]="clickedRows.has(row)"
+            *matRowDef="let row; columns: displayedColumns;"
+        ></tr>
+    </table>
+    <mat-paginator #paginator
+    class="paginator"
+    [length]="totalRecords"
+    [pageIndex]="pageNumber"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="getCountries($event)"></mat-paginator>
+</div>

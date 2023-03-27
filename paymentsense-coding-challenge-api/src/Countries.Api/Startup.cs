@@ -3,6 +3,7 @@ using Countries.Application.Mappers.Interfaces;
 using Countries.Application.Repositories;
 using Countries.Application.Repositories.Decorators;
 using Countries.Domain.Repositories.Interfaces;
+using Countries.Infrastructure.Handlers;
 using Countries.Infrastructure.HttpClients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,12 +38,13 @@ namespace Countries.Api
                 });
             });
 
-            services.AddHttpClient<RestCountriesHttpClient>((sp, httpClient) => 
+            services.AddHttpClient<RestCountriesHttpClient>((sp, httpClient) =>
             {
                 var configuration = sp.GetRequiredService<IConfiguration>();
 
                 httpClient.BaseAddress = new Uri(configuration["RestCountriesApiUrl"]);
-            });
+            })
+            .AddHttpMessageHandler<RestCountriesOfflineDelegatingHandler>();
 
             services.AddMemoryCache();
 
@@ -50,6 +52,7 @@ namespace Countries.Api
             services.Decorate<ICountriesRepository, CountriesRepositoryWithCache>();
 
             services.AddSingleton<ICountryMapper, CountryMapper>();
+            services.AddTransient<RestCountriesOfflineDelegatingHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

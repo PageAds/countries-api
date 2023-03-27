@@ -9,6 +9,9 @@ import { CountriesApiService } from './services/countries-api-service'
 import { MockCountriesApiService } from './testing/mock-countries-api-service';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,7 +19,10 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         FontAwesomeModule,
-        MatListModule
+        BrowserAnimationsModule,
+        MatListModule,
+        MatTableModule,
+        MatPaginatorModule,
       ],
       declarations: [
         AppComponent,

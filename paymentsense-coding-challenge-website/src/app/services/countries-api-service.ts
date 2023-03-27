@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Country } from '../models/country';
 import { environment } from 'src/environments/environment';
+import { CountriesResponse } from '../models/countriesResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class CountriesApiService {
 
   constructor(private httpClient: HttpClient) {}
   
-  public getCountries() : Observable<Country[]>
+  public getCountries(pageNumber: number, pageSize: number) : Observable<CountriesResponse>
   {
-    return this.httpClient.get<Country[]>(`${this.apiUrl}/countries`, { responseType: 'json' });
+    return this.httpClient.get<CountriesResponse>(`${this.apiUrl}/countries?pageNumber=${pageNumber}&pageSize=${[pageSize]}`, { responseType: 'json' });
   }
 }

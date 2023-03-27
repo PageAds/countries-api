@@ -1,8 +1,32 @@
 .center {
     left: 50%;
-    position: absolute;
+    position: relative;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+  
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+}
+
+td.mat-column-name {
+    font-size: 40px;
+}
+
+#countriesTable {
+    width: 50%;
+    position: relative;
+    transform: translateX(50%);
+}
+
+.mat-column-flag {
+    width: 200px !important;
 }

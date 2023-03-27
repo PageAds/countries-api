@@ -5,7 +5,7 @@
         public Country(string name, string flagUrl)
         {
             this.Name = name;
-            FlagUrl = flagUrl;
+            this.FlagUrl = flagUrl;
         }
 
         public string Name { get; }
