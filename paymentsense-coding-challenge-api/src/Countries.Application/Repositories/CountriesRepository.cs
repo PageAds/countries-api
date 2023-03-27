@@ -22,7 +22,7 @@ namespace Countries.Application.Repositories
         {
             var restCountries = await this.restCountriesHttpClient.Get();
 
-            return restCountries.Select(restCountry => this.countryMapper.Map(restCountry));
+            return restCountries.Select(restCountry => this.countryMapper.Map(restCountry, restCountries));
         }
     }
 }

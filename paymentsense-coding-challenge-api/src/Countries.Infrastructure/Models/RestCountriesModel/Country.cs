@@ -28,7 +28,7 @@ namespace Countries.Infrastructure.Models.RestCountriesModel
         [JsonProperty("capital")]
         public IEnumerable<string> CapitalCities { get; set; }
 
-        [JsonProperty("string")]
+        [JsonProperty("borders")]
         public IEnumerable<string> Borders { get; set; }
     }
 }
