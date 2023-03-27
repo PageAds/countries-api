@@ -10,6 +10,18 @@
 
         public string Name { get; }
 
-        public string FlagUrl { get; set; }
+        public string FlagUrl { get; }
+
+        public int Population { get; }
+
+        public IEnumerable<string> TimeZones { get; }
+
+        public IEnumerable<string> Currencies { get; }
+
+        public IEnumerable<string> Languages { get; }
+
+        public IEnumerable<string> CapitalCities { get; }
+
+        public IEnumerable<string> Borders { get; }
     }
 }

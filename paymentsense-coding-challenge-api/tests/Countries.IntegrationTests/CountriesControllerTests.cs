@@ -10,6 +10,7 @@ using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -52,7 +53,16 @@ namespace Countries.IntegrationTests
         public async Task GetCountries_WhenExternalApiReturnsCountries_ReturnsListOfCountries()
         {
             // Arrange
-            var mockedCountries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
+            var mockCountry1 = this.fixture.Create<Infrastructure.Models.RestCountriesModel.Country>();
+            var mockCountry2 = this.fixture.Create<Infrastructure.Models.RestCountriesModel.Country>();
+            var mockCountry3 = this.fixture.Create<Infrastructure.Models.RestCountriesModel.Country>();
+
+            mockCountry1.Borders = new List<string> { mockCountry2.CountryCode };
+            mockCountry2.Borders = new List<string> { mockCountry3.CountryCode };
+            mockCountry3.Borders = new List<string> { mockCountry1.CountryCode };
+
+            var mockedCountries = new List<Infrastructure.Models.RestCountriesModel.Country> { mockCountry1, mockCountry2, mockCountry3 };
+
             var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(JsonConvert.SerializeObject(mockedCountries), new MediaTypeHeaderValue("application/json"))
@@ -77,6 +87,27 @@ namespace Countries.IntegrationTests
                 var mockedCountry = mockedCountries.Single(x => x.Name.Common == country.Name);
                 country.Name.Should().Be(mockedCountry.Name.Common);
                 country.FlagUrl.Should().Be(mockedCountry.Flags.Png);
+                country.Population.Should().Be(mockedCountry.Population);
+
+                country.TimeZones.Count().Should().Be(mockedCountry.TimeZones.Count());
+                country.TimeZones.Select(x => mockedCountry.TimeZones.Should().Contain(x));
+
+                country.Currencies.Count().Should().Be(mockedCountry.Currencies.Count());
+                country.Currencies.Select(x => mockedCountry.Currencies.Should().Contain(x));
+
+                country.Languages.Count().Should().Be(mockedCountry.Languages.Count());
+                country.Languages.Select(x => mockedCountry.Languages.Should().Contain(x));
+
+                country.CapitalCities.Count().Should().Be(mockedCountry.CapitalCities.Count());
+                country.CapitalCities.Select(x => mockedCountry.CapitalCities.Should().Contain(x));
+
+                country.Borders.Count().Should().Be(mockedCountry.Borders.Count());
+
+                foreach (var mockedBorder in mockedCountry.Borders)
+                {
+                    var mockedBorderedCountry = mockedCountries.Single(x => x.CountryCode == mockedBorder);
+                    country.Borders.Should().Contain(mockedBorderedCountry.Name.Common);
+                }
             }
         }
 
