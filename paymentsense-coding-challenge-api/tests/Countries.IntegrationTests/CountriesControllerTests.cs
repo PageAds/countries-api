@@ -49,7 +49,7 @@ namespace Countries.IntegrationTests
         }
 
         [Fact]
-        public async Task GetCountries_WhenExternalApiReturnsCountries_ReturnsListOfTheSameCountryNames()
+        public async Task GetCountries_WhenExternalApiReturnsCountries_ReturnsListOfCountries()
         {
             // Arrange
             var mockedCountries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>();
@@ -74,7 +74,9 @@ namespace Countries.IntegrationTests
 
             foreach (var country in countriesResponse.Countries)
             {
-                mockedCountries.Select(x => x.Name.Common).SingleOrDefault(x => x == country.Name).Should().NotBeNull();
+                var mockedCountry = mockedCountries.Single(x => x.Name.Common == country.Name);
+                country.Name.Should().Be(mockedCountry.Name.Common);
+                country.FlagUrl.Should().Be(mockedCountry.Flags.Png);
             }
         }
 

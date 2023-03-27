@@ -8,5 +8,7 @@
         }
 
         public string Name { get; }
+
+        public string FlagUrl { get; set; }
     }
 }

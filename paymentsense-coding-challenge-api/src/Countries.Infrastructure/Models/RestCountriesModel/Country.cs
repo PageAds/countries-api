@@ -6,5 +6,8 @@ namespace Countries.Infrastructure.Models.RestCountriesModel
     {
         [JsonProperty("name")]
         public Name Name { get; set; }
+
+        [JsonProperty("flags")]
+        public Flags Flags { get; set; }
     }
 }
