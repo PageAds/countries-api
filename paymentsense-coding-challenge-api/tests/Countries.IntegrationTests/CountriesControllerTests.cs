@@ -130,7 +130,7 @@ namespace Countries.IntegrationTests
         public async Task GetCountries_ReturnsPaginatedResponse(int pageNumber, int pageSize, int totalRecords)
         {
             // Arrange
-            var countriesToReturn = 100;
+            var countriesToReturn = totalRecords;
             var mockedCountries = fixture.CreateMany<Infrastructure.Models.RestCountriesModel.Country>(countriesToReturn);
             var restCountriesHttpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
             {
@@ -140,7 +140,7 @@ namespace Countries.IntegrationTests
             var client = this.CreateTestHttpClient(restCountriesHttpResponseMessage);
 
             // Act
-            var response = await client.GetAsync($"/countries?pageNumber{pageNumber}&pageSize={pageSize}");
+            var response = await client.GetAsync($"/countries?pageNumber={pageNumber}&pageSize={pageSize}");
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
