@@ -1,3 +1,4 @@
+using Countries.Api.Extensions;
 using Countries.Application.Mappers;
 using Countries.Application.Mappers.Interfaces;
 using Countries.Application.Repositories;
@@ -10,7 +11,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Polly.Extensions.Http;
+using Polly;
 using System;
+using System.Net.Http;
 
 namespace Countries.Api
 {
@@ -27,6 +31,7 @@ namespace Countries.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen();
             services.AddHealthChecks();
             services.AddCors(options =>
             {
@@ -44,6 +49,7 @@ namespace Countries.Api
 
                 httpClient.BaseAddress = new Uri(configuration["RestCountriesApiUrl"]);
             })
+            .AddPolicyHandler(GetRetryPolicy())
             .AddHttpMessageHandler<RestCountriesOfflineDelegatingHandler>();
 
             services.AddMemoryCache();
@@ -60,6 +66,9 @@ namespace Countries.Api
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+
                 app.UseDeveloperExceptionPage();
             }
 
@@ -71,11 +80,20 @@ namespace Countries.Api
 
             app.UseAuthorization();
 
+            app.UseCustomExceptionHandlingMiddleware();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
             });
+        }
+
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(1));
         }
     }
 }
