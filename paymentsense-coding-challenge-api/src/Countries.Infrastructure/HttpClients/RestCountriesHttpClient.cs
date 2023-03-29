@@ -17,7 +17,10 @@ namespace Countries.Infrastructure.HttpClients
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Request GET {response.RequestMessage?.RequestUri} failed with status code {response.StatusCode} and content {await response.Content.ReadAsStringAsync()}");
+                throw new HttpRequestException(
+                    $"Request GET {response.RequestMessage?.RequestUri} failed with status code {response.StatusCode} and content {await response.Content.ReadAsStringAsync()}", 
+                    default, 
+                    response.StatusCode);
             }
 
             return await response.Content.ReadAsAsync<IEnumerable<Country>>();

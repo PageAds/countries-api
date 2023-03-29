@@ -1,6 +1,5 @@
 using AutoFixture;
 using Countries.Application.Mappers;
-using Countries.Application.Models;
 using FluentAssertions;
 using Xunit;
 
