@@ -6,13 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\**" />
     <Compile Remove="Services\**" />
-    <Content Remove="Models\**" />
     <Content Remove="Services\**" />
-    <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Services\**" />
-    <None Remove="Models\**" />
     <None Remove="Services\**" />
   </ItemGroup>
 
@@ -23,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Countries.Application\Countries.Application.csproj" />
     <ProjectReference Include="..\Countries.Domain\Countries.Domain.csproj" />
     <ProjectReference Include="..\Countries.Infrastructure\Countries.Infrastructure.csproj" />
   </ItemGroup>

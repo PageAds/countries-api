@@ -2,7 +2,15 @@
 {
     public class Country
     {
-        public Country(string name, string flagUrl, int population, IEnumerable<string> timeZones, IEnumerable<string> currencies, IEnumerable<string> languages, IEnumerable<string> capitalCities, IEnumerable<string> borders)
+        public Country(
+            string name, 
+            string flagUrl, 
+            int population, 
+            IEnumerable<string> timeZones, 
+            IEnumerable<string> currencies, 
+            IEnumerable<string> languages, 
+            IEnumerable<string> capitalCities, 
+            IEnumerable<string> borders)
         {
             this.Name = name;
             this.FlagUrl = flagUrl;

@@ -1,5 +1,5 @@
 ﻿using Countries.Api.Filters;
-using Countries.Application.Models;
+using Countries.Api.Models;
 using Countries.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;

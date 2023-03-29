@@ -2,7 +2,7 @@
 using Countries.Domain.Repositories.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Countries.Application.Repositories.Decorators
+namespace Countries.Infrastructure.Repositories.Decorators
 {
     public class CountriesRepositoryWithCache : ICountriesRepository
     {

@@ -1,10 +1,10 @@
 using Countries.Api.Extensions;
-using Countries.Application.Repositories.Decorators;
 using Countries.Domain.Repositories.Interfaces;
 using Countries.Infrastructure.Handlers;
 using Countries.Infrastructure.HttpClients;
 using Countries.Infrastructure.Mappers.Interfaces;
 using Countries.Infrastructure.Repositories;
+using Countries.Infrastructure.Repositories.Decorators;
 using Countries.Infrastructure.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

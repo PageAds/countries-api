@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using Countries.Api;
-using Countries.Application.Models;
+using Countries.Api.Models;
 using Countries.Infrastructure.HttpClients;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;

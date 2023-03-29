@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Domain", "src\Cou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Infrastructure", "src\Countries.Infrastructure\Countries.Infrastructure.csproj", "{D6BC77AE-C0AA-4373-A1E8-4846A739845A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Application", "src\Countries.Application\Countries.Application.csproj", "{F4C4FC72-DAF9-48C0-8DF7-838361058B81}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1A367953-C629-4952-9DFD-2A98C85FF08A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Infrastructure.UnitTests", "tests\Countries.Infrastructure.UnitTests\Countries.Infrastructure.UnitTests.csproj", "{BCB827AD-7425-4919-A7E2-3616F159EB35}"
@@ -75,18 +73,6 @@ Global
 		{D6BC77AE-C0AA-4373-A1E8-4846A739845A}.Release|x64.Build.0 = Release|Any CPU
 		{D6BC77AE-C0AA-4373-A1E8-4846A739845A}.Release|x86.ActiveCfg = Release|Any CPU
 		{D6BC77AE-C0AA-4373-A1E8-4846A739845A}.Release|x86.Build.0 = Release|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Debug|x64.Build.0 = Debug|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Debug|x86.Build.0 = Debug|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Release|x64.ActiveCfg = Release|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Release|x64.Build.0 = Release|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Release|x86.ActiveCfg = Release|Any CPU
-		{F4C4FC72-DAF9-48C0-8DF7-838361058B81}.Release|x86.Build.0 = Release|Any CPU
 		{BCB827AD-7425-4919-A7E2-3616F159EB35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCB827AD-7425-4919-A7E2-3616F159EB35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCB827AD-7425-4919-A7E2-3616F159EB35}.Debug|x64.ActiveCfg = Debug|Any CPU
