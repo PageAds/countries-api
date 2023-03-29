@@ -1,6 +1,6 @@
-﻿using Countries.Application.Mappers.Interfaces;
+﻿using Countries.Infrastructure.Mappers.Interfaces;
 
-namespace Countries.Application.Mappers
+namespace Countries.Infrastructure.Mappers
 {
     public class CountryMapper : ICountryMapper
     {

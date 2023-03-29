@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.IntegrationTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Domain", "src\Countries.Domain\Countries.Domain.csproj", "{61AF80E7-188F-41F7-AC20-CA14E9D4EF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Infrastructure", "src\Countries.Infrastructure\Countries.Infrastructure.csproj", "{D6BC77AE-C0AA-4373-A1E8-4846A739845A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Infrastructure", "src\Countries.Infrastructure\Countries.Infrastructure.csproj", "{D6BC77AE-C0AA-4373-A1E8-4846A739845A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Application", "src\Countries.Application\Countries.Application.csproj", "{F4C4FC72-DAF9-48C0-8DF7-838361058B81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Application", "src\Countries.Application\Countries.Application.csproj", "{F4C4FC72-DAF9-48C0-8DF7-838361058B81}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1A367953-C629-4952-9DFD-2A98C85FF08A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Application.UnitTests", "tests\Countries.Application.UnitTests\Countries.Application.UnitTests.csproj", "{BCB827AD-7425-4919-A7E2-3616F159EB35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.Infrastructure.UnitTests", "tests\Countries.Infrastructure.UnitTests\Countries.Infrastructure.UnitTests.csproj", "{BCB827AD-7425-4919-A7E2-3616F159EB35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

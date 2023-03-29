@@ -1,9 +1,9 @@
-﻿using Countries.Application.Mappers.Interfaces;
-using Countries.Domain.Models;
+﻿using Countries.Domain.Models;
 using Countries.Domain.Repositories.Interfaces;
 using Countries.Infrastructure.HttpClients;
+using Countries.Infrastructure.Mappers.Interfaces;
 
-namespace Countries.Application.Repositories
+namespace Countries.Infrastructure.Repositories
 {
     public class CountriesRepository : ICountriesRepository
     {

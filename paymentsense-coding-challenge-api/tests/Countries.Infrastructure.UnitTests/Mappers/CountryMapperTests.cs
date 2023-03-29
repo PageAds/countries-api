@@ -1,9 +1,10 @@
 using AutoFixture;
-using Countries.Application.Mappers;
+using Countries.Infrastructure.Mappers;
+using Countries.Infrastructure.Models.RestCountriesModel;
 using FluentAssertions;
 using Xunit;
 
-namespace Countries.Application.UnitTests.Mappers
+namespace Countries.Infrastructure.UnitTests.Mappers
 {
     public class CountryMapperTests
     {
@@ -19,13 +20,13 @@ namespace Countries.Application.UnitTests.Mappers
         [Fact]
         public void Map_Country()
         {
-            var restCountry1 = this.fixture.Create<Infrastructure.Models.RestCountriesModel.Country>();
-            var restCountry2 = this.fixture.Create<Infrastructure.Models.RestCountriesModel.Country>();
+            var restCountry1 = this.fixture.Create<Country>();
+            var restCountry2 = this.fixture.Create<Country>();
 
             restCountry1.Borders = new List<string> { restCountry2.CountryCode };
             restCountry2.Borders = new List<string> { restCountry1.CountryCode };
 
-            var restCountries = new List<Infrastructure.Models.RestCountriesModel.Country> { restCountry1, restCountry2 };
+            var restCountries = new List<Country> { restCountry1, restCountry2 };
 
             var country = this.mapper.Map(restCountry1, restCountries);
 
